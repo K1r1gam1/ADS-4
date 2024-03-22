@@ -25,7 +25,7 @@ int countPairs3(int *arr, int size, int value) {
   int count = 0;
   int cnt;
   for (int i = 0; i < size - 1; i++) {
-      if(arr[i] = arr{i-1] && i != 0) {
+      if(arr[i] == arr[i-1] && i != 0) {
           count+=cnt;
           continue;
       }
