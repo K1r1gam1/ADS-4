@@ -7,19 +7,22 @@ int countPairs1(int *arr, int size, int value) {
         count += 1;
   return count;
 }
-int countPairs2(int *arr, int size, int value) {
-  int count = 0;
-  for (int i = 0; i < size - 1; i++) {
-    if (arr[i] > value)
-      continue;
-    for (int j = size - 1; j > i; j--) {
-      if (arr[j] > value)
-        continue;
-      if ((arr[i] + arr[j]) == value)
-        count += 1;
+int countPairs2(int* arr, int len, int value) {
+    int count = 0;
+    int left = 0;
+    int right = len - 1;
+    while (arr[right] > value) {
+        right = right - 1;
     }
-  }
-  return count;
+for (int i = 0; i < right; i++) {
+        for (int j = right; j > i; j--) {
+            int sum = arr[i] + arr[j];
+            if (sum == value) {
+                count++;
+            }
+        }
+    }
+    return count;
 }
 int cbinsearch(int* arr, int size, int value) {
     int count = 0;
