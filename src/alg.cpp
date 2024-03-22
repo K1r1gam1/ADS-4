@@ -21,38 +21,41 @@ int countPairs2(int *arr, int size, int value) {
   }
   return count;
 }
-int countPairs3(int *arr, int size, int value) {
-  int count = 0;
-  int cnt;
-  for (int i = 0; i < size - 1; i++) {
-      if (arr[i] == arr[i-1] && i != 0) {
-          count += cnt;
-          continue;
-      }
-      cnt = 0;
-      int left = i, right = size;
-      while ((right - left) > 1) {
-          int mid = (left + right) / 2;
-          if (arr[mid] + arr[i] == value) {
-              cnt++;
-              int top = mid + 1;
-              while (arr[top] + arr[i] == value && top < right) {
-                  cnt++;
-                  top++;
-              }
-              top = mid - 1;
-              while (arr[top] + arr[i] == value && top > left) {
-                  cnt++;
-                  top--;
-              }
-              count += cnt;
-              break;
-          }
-          if (arr[mid] + arr[i] > value)
-              right = mid;
-          if (arr[mid] + arr[i] < value)
-              left = mid;
-      }
-  }
-  return count;
+int cbinsearch(int* arr, int size, int value) {
+    int count = 0;
+    int left = 0;
+    int right = size - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == value) {
+            count++;
+            int left = mid - 1;
+            int right = mid + 1;
+            while (left >= 0 && arr[left] == value) {
+                count++;
+                left--;
+            }
+            while (right < size && arr[right] == value) {
+                count++;
+                right++;
+            }
+            return count;
+        }
+        if (arr[mid] < value) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return count;
 }
+
+int countPairs3(int* arr, int len, int value) {
+    int count = 0;
+    for (int i = 0; i < len; i++) {
+        int second = value - arr[i];
+        count += cbinsearch(&arr[i + 1], len - i - 1, second);
+    }
+    return count;
+} 
