@@ -58,4 +58,4 @@ int countPairs3(int* arr, int len, int value) {
         count += cbinsearch(&arr[i + 1], len - i - 1, second);
     }
     return count;
-} 
+}
